@@ -65,6 +65,17 @@ var proxyquire = module.exports = function (require_) {
   };
 };
 
+/* Mimic node style noCallThru */
+proxyquire.noCallThru = function (  ) {
+  
+  return function ( request, stubs ) {
+    
+    if ( stubs ) stubs[ '@noCallThru' ] = true;
+    
+    return proxyquire( request, stubs );
+  }
+}
+
 // Start with the default cache
 proxyquire._cache = null;
 
